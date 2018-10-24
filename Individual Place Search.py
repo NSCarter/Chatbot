@@ -2,13 +2,14 @@
 import urllib.request
 import json
 
-userInput = 'singer hall' #The input from the user
+userInput = 'coventry student union' #The input from the user
 userInput = userInput.replace(' ', '+') #Turn the input into something that can be used in the url
 
 def individualPlaceSearch(userInput):
-    '''Takes an input from a user as a string, finds information about a place, and returns it as a string'''
+    '''Takes an input from a user as a string, finds information about a place, and returns it as a list of strings'''
     
     userInput = userInput.replace(' ', '+') #Turn the input into something that can be used in the url
+    output = []
     
     #Access the results from the following web address
     with urllib.request.urlopen('https://maps.googleapis.com/maps/api/place/radarsearch/json?location=52.408040,-1.511378&radius=10000&rankby=prominence&keyword='+userInput+'&key=AIzaSyDtTDDYIt-fYijfy9c-mpBkZKOAoNhj1j8') as response:
@@ -33,14 +34,16 @@ def individualPlaceSearch(userInput):
         if i == 'open_now':
             if 'opening_hours' in data2['result']:
                 if data2['result']['opening_hours'][i] == True:
-                        print('Open now')
+                    output.append('Open now')
                 else:
-                    print('Closed now')
+                    output.append('Closed now')
         else:
             if i in data2['result']:
                 if i == 'rating':
-                    print(data2['result'][i], 'stars')
+                    output.append((data2['result'][i], 'stars'))
                 else:
-                    print(data2['result'][i])
+                    output.append(data2['result'][i])
 
-individualPlaceSearch(userInput)
+    return output
+
+print(individualPlaceSearch(userInput))
