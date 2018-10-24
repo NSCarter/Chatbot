@@ -2,7 +2,7 @@ import numpy as np
 
 file = 'General Names.csv'
 
-keywords = ['museum']   #Keywords found from the users input 
+#keywords = ['museum']   #Keywords found from the users input 
 outputInfo = []
 
 name = np.genfromtxt(file, delimiter=',', names=True, dtype=None)   #Loads the contents of the csv file, seperates it by comma and converts it to string, code from DataCamp - Importing Data in Python
@@ -86,10 +86,10 @@ def findInfo(keywords):
                             outputInfo.append(fixEntry(entry))
                         
         else:
-            print ('No information found')
+            return ('No information found')
 
     return outputInfo
 
 
 
-print(findInfo(keywords))
+#print(findInfo(keywords))
