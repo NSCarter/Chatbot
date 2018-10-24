@@ -20,44 +20,52 @@ parksKey = ['park', 'reserve']
 
 '''Keywords entered in a list, information is found and returned in a list'''
 def findInfo(keywords):
+
+    def fixEntry(entry):
+        entry = entry.translate({ord(c): None for c in '\'[]'})
+        entry = entry.strip('\n')
+        if entry[0] == 'b' and entry not in ['belgrade theatre', 'brandon marsh nature reserve']:
+            entry = entry[1:]
+        return entry
+    
     #Look at each keyword and see if they belong to a catergory
     #If a category has been found, check to see if the results can be more specific to the keyword
-    for i in keywords:  #For each keyword in the users input
-        if i in drinkingKey:    #If the word is in one of the keys
+    for word in keywords:  #For each keyword in the users input
+        if word in drinkingKey:    #If the word is in one of the keys
             lis = list((str(name['drinking'])).split(' b')) #Create a list all all the information on that topic
-            
-            for c in lis:   #Check to see if the information can be more specific based on the keyword
-                if i in c:
-                    outputInfo.append(c)
-        elif i in activitiesKey:
+            for entry in lis:   ##Check to see if the information can be more specific based on the keyword#Check to see if the information can be more specific based on the keyword
+                if word in entry:
+                    entry = fixEntry(entry)
+                    outputInfo.append(entry)
+        elif word in activitiesKey:
             lis = list((str(name['activites'])).split(' b'))
-            
-            for c in lis:
-                if i in c:
-                    outputInfo.append(c)
+            for entry in lis:
+                if word in entry:
+                    entry = fixEntry(entry)
+                    outputInfo.append(entry)
 
-        elif i in clothingKey:
+        elif word in clothingKey:
             lis = list((str(name['clothing'])).split(' b'))
-            for c in lis:
-                if i in c:
-                    outputInfo.append(c)
-        elif i in fitnessKey:
+            for entry in lis:
+                if word in entry:
+                    entry = fixEntry(entry)
+                    outputInfo.append(entry)
+        elif word in fitnessKey:
             lis = list((str(name['fitness'])).split(' b'))
-            for c in lis:
-                if i in c:
-                    outputInfo.append(c)
-        elif i in parksKey:
+            for entry in lis:
+                if word in entry:
+                    entry = fixEntry(entry)
+                    outputInfo.append(entry)
+        elif word in parksKey:
             lis = (str(name['parks'])).split(' b')
-            print (type(lis))
-            for c in lis:
-                if i in c:
-                    outputInfo.append(c)
+            for entry in lis:
+                if word in entry:
+                    entry = fixEntry(entry)
+                    outputInfo.append(entry)
         else:
             print ('No information found')
-    l = []
-    for i in outputInfo:
-        l.append(i.strip())
-    return l
+
+    return outputInfo
 
 
 
