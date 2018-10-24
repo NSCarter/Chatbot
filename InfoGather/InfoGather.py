@@ -5,7 +5,7 @@ file = 'General Names.csv'
 keywords = ['museum']   #Keywords found from the users input 
 outputInfo = []
 
-name = np.genfromtxt(file, delimiter=',', names=True, dtype=None)   #Loads the contents of the csv file, seperates it by comma and converts it to string
+name = np.genfromtxt(file, delimiter=',', names=True, dtype=None)   #Loads the contents of the csv file, seperates it by comma and converts it to string, code from DataCamp - Importing Data in Python
 
 #Lists of keywords to be recognised
 drinkingKey = ['drinking', 'club', 'pub', 'drinks', 'drink',' clubs', 'pubs', 'nightclub', 'nightclubs']
@@ -21,7 +21,7 @@ def findInfo(keywords):
 
     '''Takes in entry as a string, removes unnecessary characters and returns entry as a string'''
     def fixEntry(entry):
-        entry = entry.translate({ord(c): None for c in '\'[]"'}) #Take out any ',[ or ] characters in the string
+        entry = entry.translate({ord(c): None for c in '\'[]"'}) #Take out any ',[ or ] characters in the string, code from https://stackoverflow.com/questions/3939361/remove-specific-characters-from-a-string-in-python
         entry = entry.strip('\n')   #Take out any line breaks in the string
         if entry[0] == 'b' and entry not in ['belgrade theatre', 'brandon marsh nature reserve', 'riley\'s sports bar']:   #Some strings gain the letter b when the numpy array is converted to a list
             entry = entry[1:]   #Remove the letter b from the front
