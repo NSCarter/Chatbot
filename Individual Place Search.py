@@ -1,22 +1,38 @@
-#import the library used to access webpages and decode the data
+#Import the library used to access webpages and decode the data
 import urllib.request
 import json
 
-userInput = 'singer+hall' #the input from the user
+userInput = 'alma+building' #The input from the user
 
-#acces the website
+#Access the results from the following web address
 with urllib.request.urlopen('https://maps.googleapis.com/maps/api/place/radarsearch/json?location=52.408040,-1.511378&radius=10000&rankby=prominence&keyword='+userInput+'&key=AIzaSyDtTDDYIt-fYijfy9c-mpBkZKOAoNhj1j8') as response:
-    raw = response.read()   #read the data from the website
+    raw = response.read()   #Read the data
 
-data = json.loads(raw.decode('utf-8'))  #decode the data into a dictionary
+data = json.loads(raw.decode('utf-8'))  #Decode the data into a dictionary
 
 #Finds the ID and the location of the first result
 placeID = data['results'][0]['place_id']
-reference = data['results'][0]['reference']
-geometry = data['results'][0]['geometry']
-iD = data['results'][0]['id']
-#print the ID and the location
-print('\n'+placeID)
-print(reference+'\n')
-print(geometry,'\n')
-print(iD+'\n')
+
+#Access the results from the following web address
+with urllib.request.urlopen('https://maps.googleapis.com/maps/api/place/details/json?placeid='+placeID+'&key=AIzaSyDtTDDYIt-fYijfy9c-mpBkZKOAoNhj1j8') as response:
+    raw2 = response.read()   #Read the data
+
+data2 = json.loads(raw2.decode('utf-8'))    #Decode the data into a dictionary
+
+#The information to be found for the user
+information = ['name','rating','formatted_address','open_now','formatted_phone_number','website']
+
+#Check if the information we want to find is available in the data2 variable and output the information
+for i in information:
+    if i == 'open_now':
+        if 'opening_hours' in data2['result']:
+            if data2['result']['opening_hours'][i] == True:
+                    print('Open now')
+            else:
+                print('Closed now')
+    else:
+        if i in data2['result']:
+            if i == 'rating':
+                print(data2['result'][i], 'stars')
+            else:
+                print(data2['result'][i])
