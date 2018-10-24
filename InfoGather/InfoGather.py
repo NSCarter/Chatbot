@@ -2,6 +2,6 @@ import numpy as np
 
 file = 'General Names.csv'
 
-names = np.loadtxt(file, delimiter=',', dtype=str, skiprows=1)  #Loads the contents of the csv file, seperates it by comma and converts it to string
+name = np.genfromtxt(file, delimiter=',', names=True, dtype=None)   #Loads the contents of the csv file, seperates it by comma and converts it to string
 
-print(names)
+print(name['Drinking'])  
