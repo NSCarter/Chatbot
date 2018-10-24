@@ -2,7 +2,8 @@
 import urllib.request
 import json
 
-userInput = 'alma+building' #The input from the user
+userInput = 'alma building' #The input from the user
+userInput = userInput.replace(' ', '+') #Turn the input into something that can be used in the url
 
 #Access the results from the following web address
 with urllib.request.urlopen('https://maps.googleapis.com/maps/api/place/radarsearch/json?location=52.408040,-1.511378&radius=10000&rankby=prominence&keyword='+userInput+'&key=AIzaSyDtTDDYIt-fYijfy9c-mpBkZKOAoNhj1j8') as response:
